@@ -1,0 +1,9 @@
+# Variables de entorno con claves secretas (NO subir)
+.env
+
+# Artefactos de Python
+__pycache__/
+*.pyc
+
+# Checkpoints de Jupyter
+.ipynb_checkpoints/
