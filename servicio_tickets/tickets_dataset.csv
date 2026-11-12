@@ -1,0 +1,101 @@
+mensaje,etiqueta
+"El sistema de pagos está caído y no podemos facturar a ningún cliente, necesito solución inmediata",urgente
+"Buenas tardes, ¿podrían indicarme cuál es el horario de atención al cliente?",consulta
+"Llevo tres semanas esperando el reembolso que me prometieron y nadie me responde, es inaceptable",queja
+"URGENTE: la base de datos de producción no responde y la tienda está fuera de servicio",urgente
+"Quisiera saber si el plan premium incluye soporte telefónico",consulta
+"Me cobraron dos veces la misma suscripción y el servicio de atención no soluciona nada",queja
+"No puedo acceder a mi cuenta desde esta mañana y tengo una presentación en una hora, ayuda por favor",urgente
+"¿Cómo puedo cambiar la dirección de envío de mi pedido?",consulta
+"El producto llegó roto y la calidad es pésima, estoy muy decepcionado con la compra",queja
+"La página web muestra error 500 en todas las secciones, los usuarios no pueden comprar",urgente
+"¿Tienen descuentos para estudiantes o planes educativos?",consulta
+"Vuestro servicio es lamentable, he llamado cinco veces y nadie resuelve mi problema",queja
+"Caída total del servidor de correo, ningún empleado puede enviar ni recibir mensajes",urgente
+"Me gustaría conocer las opciones de pago disponibles para la renovación",consulta
+"Esperaba mucho más de este producto, no cumple lo que prometieron en la publicidad",queja
+"Alerta: detectamos accesos no autorizados a la cuenta de administrador, actúen ya",urgente
+"¿El envío internacional tiene algún costo adicional?",consulta
+"Llevo meses pagando por un servicio que apenas funciona, quiero una compensación",queja
+"La aplicación se cierra sola cada vez que intento finalizar la compra, pierdo ventas",urgente
+"Quería consultar si puedo cambiar mi plan mensual a uno anual",consulta
+"Nadie me ha devuelto la llamada como prometieron, el seguimiento es terrible",queja
+"Fuga de datos en curso, información de clientes expuesta, necesitamos respuesta inmediata",urgente
+"¿Qué métodos de autenticación soportan para la API?",consulta
+"El pedido llegó con dos semanas de retraso y encima incompleto, muy mal servicio",queja
+"El datacenter reporta sobrecalentamiento y los servicios empiezan a fallar, es crítico",urgente
+"Buenos días, ¿dónde puedo descargar la factura de mi última compra?",consulta
+"Estoy harto de que cada actualización rompa funciones que antes servían",queja
+"No funciona el inicio de sesión para ningún usuario de la empresa, estamos bloqueados",urgente
+"¿Puedo tener varias cuentas asociadas a un mismo correo?",consulta
+"El soporte me transfirió seis veces y seguí sin solución, pésima experiencia",queja
+"Pérdida de conexión con la pasarela de pago, las transacciones se están rechazando",urgente
+"Me interesa saber si ofrecen una versión de prueba gratuita",consulta
+"La interfaz es confusa y lenta, cada tarea me toma el doble de tiempo",queja
+"Servicio caído a nivel nacional, todos los clientes reportan que no pueden entrar",urgente
+"¿Cuánto tiempo tarda en procesarse una devolución?",consulta
+"Me prometieron un descuento que nunca se aplicó en la factura final",queja
+"Error crítico en el proceso de backup, podríamos perder datos esta noche",urgente
+"¿Es posible programar una demostración del producto para mi equipo?",consulta
+"La atención por chat es inútil, solo responden con mensajes automáticos",queja
+"El sitio de reservas colapsó justo en plena campaña, perdemos clientes cada minuto",urgente
+"Quería confirmar si la garantía cubre daños por uso normal",consulta
+"Llevo una hora al teléfono y aún no resuelven algo tan simple, es frustrante",queja
+"Ataque de denegación de servicio en curso, la plataforma está inaccesible",urgente
+"¿Dónde encuentro la documentación técnica para desarrolladores?",consulta
+"El artículo que recibí no corresponde al que pedí y el proceso de cambio es un caos",queja
+"La impresora de etiquetas del almacén dejó de funcionar y frenó todos los despachos",urgente
+"¿Puedo actualizar mis datos de facturación desde el panel de usuario?",consulta
+"Cada vez que escribo me responde una persona distinta y tengo que explicar todo de nuevo",queja
+"Se perdió la conexión con el sistema de inventario y no podemos vender, urge arreglarlo",urgente
+"Me gustaría saber si tienen una app para dispositivos móviles",consulta
+"El producto dejó de funcionar a la semana y se niegan a reemplazarlo",queja
+"Incidente de seguridad: contraseñas comprometidas, requerimos bloqueo inmediato",urgente
+"¿Cuáles son los requisitos del sistema para instalar el software?",consulta
+"Me siento engañado, las condiciones del contrato no eran las que me explicaron",queja
+"El cajero automático de la sucursal está fuera de servicio y hay fila de clientes molestos",urgente
+"¿Ofrecen integración con sistemas de terceros como ERP?",consulta
+"La factura tiene cargos que no reconozco y nadie me da una explicación clara",queja
+"Se cayó el sistema de tickets justo cuando más llamadas tenemos, necesitamos ayuda ya",urgente
+"Quería preguntar si el soporte está disponible los fines de semana",consulta
+"Compré el plan anual y a los dos días bajaron el precio, me siento estafado",queja
+"El servidor de autenticación no valida credenciales y nadie puede trabajar",urgente
+"¿Cómo configuro las notificaciones por correo en mi cuenta?",consulta
+"El repartidor fue grosero y dejó el paquete tirado en la entrada, muy mala imagen",queja
+"Caída del sistema de nómina el día de pago, los empleados no reciben su salario",urgente
+"¿Puedo exportar mis datos en formato CSV o Excel?",consulta
+"Ya van tres pedidos seguidos con errores, estoy perdiendo la confianza en ustedes",queja
+"La red del hospital está caída y no accedemos a las historias clínicas, es una emergencia",urgente
+"Me gustaría conocer la política de privacidad sobre el uso de mis datos",consulta
+"El tiempo de respuesta del soporte es inaceptable, llevo días sin solución",queja
+"Falla general en el sistema de climatización del servidor, riesgo de apagado inminente",urgente
+"¿Tienen planes familiares o para varios usuarios?",consulta
+"Pagué por envío express y llegó más tarde que el estándar, quiero mi dinero de vuelta",queja
+"La terminal de punto de venta no procesa tarjetas y los clientes se están yendo",urgente
+"¿Qué incluye exactamente el periodo de garantía del equipo?",consulta
+"La calidad del material es malísima, se rompió al primer uso",queja
+"Interrupción del servicio de telefonía en toda la oficina, no podemos atender llamadas",urgente
+"¿Puedo cancelar mi suscripción en cualquier momento sin penalización?",consulta
+"Me cambiaron las condiciones del servicio sin avisar y ahora pago más por lo mismo",queja
+"El sistema de control de acceso no abre las puertas y el personal quedó encerrado",urgente
+"¿Cómo recupero mi contraseña si perdí acceso al correo asociado?",consulta
+"Llevo semanas reportando el mismo error y siguen sin arreglarlo, es decepcionante",queja
+"Corte eléctrico en el datacenter principal, servicios críticos en riesgo",urgente
+"Quería saber si puedo agregar más miembros a mi equipo más adelante",consulta
+"El vendedor me prometió características que el producto no tiene, me engañaron",queja
+"La plataforma de trading no actualiza precios en tiempo real, estamos perdiendo dinero",urgente
+"¿Dónde puedo ver el estado de mi pedido en tiempo real?",consulta
+"El empaque venía sucio y abierto, da la impresión de que es un producto usado",queja
+"Se bloqueó el acceso a todos los archivos compartidos, el equipo no puede trabajar",urgente
+"¿Ofrecen capacitación o tutoriales para nuevos usuarios?",consulta
+"He pedido la baja del servicio tres veces y me siguen cobrando igual",queja
+"Error en el sistema de reservas de vuelos, los pasajeros no pueden hacer check-in",urgente
+"¿Cuál es la diferencia entre el plan básico y el profesional?",consulta
+"El técnico no se presentó a la cita acordada y perdí todo el día esperando",queja
+"La aplicación bancaria muestra saldos incorrectos a todos los usuarios, es gravísimo",urgente
+"¿Puedo usar el mismo producto en varios dispositivos al tiempo?",consulta
+"Me enviaron un modelo diferente al que compré y encima más barato, es inaceptable",queja
+"El servidor de la clínica no permite agendar citas y la sala de espera está llena",urgente
+"Quisiera saber si hay versión del software en otros idiomas",consulta
+"El servicio posventa es inexistente, una vez que pagas te abandonan por completo",queja
+"¿Puedo obtener una factura a nombre de mi empresa en lugar de mi nombre personal?",consulta

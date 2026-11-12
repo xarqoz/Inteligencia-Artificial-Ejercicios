@@ -1,0 +1,6 @@
+# Clave secreta: NO subir
+.env
+
+# Artefactos de Python
+__pycache__/
+*.pyc
