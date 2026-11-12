@@ -1,5 +1,6 @@
 """Demo sin servidor: clasifica una lista de tickets de ejemplo y muestra
-la categoría, la fuente (reglas o LLM) y la acción de enrutamiento sugerida.
+la categoría, la fuente (reglas / LLM / revisión), si requiere revisión humana
+y la acción de enrutamiento sugerida.
 
 Ejecutar:
     python demo.py
@@ -16,7 +17,8 @@ EJEMPLOS = [
     "Llevo tres semanas esperando el reembolso y nadie responde, es inaceptable",
     "La aplicación bancaria muestra saldos incorrectos a todos los usuarios",
     "La interfaz es confusa y lenta, cada tarea me toma el doble de tiempo",
-    "Hola, muchas gracias por la atención de ayer",
+    "Muchas gracias por la atención de ayer",
+    "Necesito ayuda con mi cuenta",   # ambiguo -> revisión humana (sin LLM)
 ]
 
 
@@ -24,13 +26,15 @@ def main() -> None:
     clf = ClasificadorTickets()
     print("LLM disponible:", clf.llm_disponible,
           "| modelo:", getattr(clf.llm, "modelo", None))
-    print("-" * 90)
+    print("-" * 94)
     for mensaje in EJEMPLOS:
         r = clf.clasifica(mensaje)
-        print(f"[{r.etiqueta.upper():8s}] fuente={r.fuente:6s} prioridad={r.prioridad:5s} "
-              f"-> {r.accion}")
+        rev = "  ⚠ REVISIÓN" if r.requiere_revision else ""
+        print(f"[{r.etiqueta.upper():8s}] fuente={r.fuente:8s} prioridad={r.prioridad:5s}"
+              f"{rev}")
+        print(f"          -> {r.accion}")
         print(f"          «{mensaje}»")
-    print("-" * 90)
+    print("-" * 94)
 
 
 if __name__ == "__main__":

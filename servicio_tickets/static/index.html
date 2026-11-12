@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clasificador de tickets de soporte</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card2: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --urgente: #ef4444;
+    --queja: #f59e0b;
+    --consulta: #22c55e;
+    --otro: #64748b;
+    --revisar: #a855f7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(160deg, #0f172a, #111827);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 1.5rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .3rem; }
+  header p { color: var(--muted); margin: 0; font-size: .95rem; }
+
+  .estado {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--card); border: 1px solid var(--card2);
+    padding: .35rem .8rem; border-radius: 999px; font-size: .8rem;
+    margin-top: .8rem;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+  .dot.on { background: var(--consulta); box-shadow: 0 0 8px var(--consulta); }
+  .dot.off { background: var(--otro); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--card2);
+    border-radius: 16px; padding: 1.3rem; margin-bottom: 1.2rem;
+  }
+  label { font-weight: 600; display: block; margin-bottom: .5rem; }
+  textarea {
+    width: 100%; min-height: 110px; resize: vertical;
+    background: #0b1220; color: var(--text);
+    border: 1px solid var(--card2); border-radius: 10px;
+    padding: .8rem; font-size: 1rem; font-family: inherit;
+  }
+  textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+  .ejemplos { display: flex; flex-wrap: wrap; gap: .45rem; margin: .8rem 0 0; }
+  .chip {
+    background: var(--card2); color: var(--text); border: none;
+    border-radius: 999px; padding: .35rem .75rem; font-size: .8rem;
+    cursor: pointer; transition: background .15s;
+  }
+  .chip:hover { background: #475569; }
+
+  .acciones { display: flex; gap: .6rem; margin-top: 1rem; align-items: center; }
+  button.go {
+    background: var(--accent); color: #06283d; border: none;
+    font-weight: 700; padding: .7rem 1.4rem; border-radius: 10px;
+    cursor: pointer; font-size: 1rem;
+  }
+  button.go:hover { filter: brightness(1.08); }
+  button.go:disabled { opacity: .6; cursor: default; }
+  .hint { color: var(--muted); font-size: .82rem; }
+
+  /* Resultado */
+  #resultado { display: none; }
+  .etiqueta-grande {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: 1.5rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .04em; padding: .4rem .9rem; border-radius: 12px;
+  }
+  .badge {
+    display: inline-block; padding: .2rem .6rem; border-radius: 999px;
+    font-size: .72rem; font-weight: 700; margin-left: .5rem;
+    background: var(--card2); color: var(--text);
+  }
+  .badge.rev { background: var(--revisar); color: #1a0533; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: 1.1rem; }
+  .celda { background: #0b1220; border-radius: 10px; padding: .7rem .9rem; }
+  .celda .k { color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+  .celda .v { font-size: 1.02rem; font-weight: 600; margin-top: .2rem; }
+
+  .accion-box {
+    margin-top: 1rem; padding: .9rem 1rem; border-radius: 10px;
+    background: #0b1220; border-left: 4px solid var(--accent);
+  }
+  .accion-box .k { color: var(--muted); font-size: .75rem; text-transform: uppercase; }
+  .accion-box .v { margin-top: .25rem; }
+
+  /* Evidencia */
+  .evidencia { margin-top: 1.1rem; }
+  .evidencia h3 { font-size: .85rem; color: var(--muted); margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .05em; }
+  .barra-row { display: flex; align-items: center; gap: .6rem; margin-bottom: .4rem; font-size: .85rem; }
+  .barra-row .nombre { width: 72px; text-transform: capitalize; }
+  .barra-track { flex: 1; background: #0b1220; border-radius: 6px; height: 14px; overflow: hidden; }
+  .barra-fill { height: 100%; border-radius: 6px; transition: width .4s; }
+  .barra-row .num { width: 20px; text-align: right; color: var(--muted); }
+
+  .err { color: var(--urgente); font-size: .9rem; margin-top: .6rem; }
+  footer { text-align: center; color: var(--muted); font-size: .78rem; margin-top: 1rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🎫 Clasificador de tickets de soporte</h1>
+    <p>Clasifica un mensaje en <b>urgente</b>, <b>consulta</b>, <b>queja</b> u <b>otro</b> y sugiere el enrutamiento.</p>
+    <div class="estado" id="estado">
+      <span class="dot" id="estado-dot"></span>
+      <span id="estado-txt">comprobando servicio…</span>
+    </div>
+  </header>
+
+  <div class="card">
+    <label for="mensaje">Texto del ticket o correo</label>
+    <textarea id="mensaje" placeholder="Escribe aquí el mensaje del cliente…"></textarea>
+
+    <div class="ejemplos" id="ejemplos"></div>
+
+    <div class="acciones">
+      <button class="go" id="btn">Clasificar</button>
+      <span class="hint">o pulsa <b>Ctrl/Cmd + Enter</b></span>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div class="card" id="resultado">
+    <div>
+      <span class="etiqueta-grande" id="etiqueta"></span>
+      <span class="badge" id="fuente"></span>
+      <span class="badge rev" id="rev" style="display:none">⚠ requiere revisión humana</span>
+    </div>
+
+    <div class="grid">
+      <div class="celda"><div class="k">Prioridad</div><div class="v" id="prioridad"></div></div>
+      <div class="celda"><div class="k">Equipo</div><div class="v" id="equipo"></div></div>
+    </div>
+
+    <div class="accion-box">
+      <div class="k">Acción sugerida</div>
+      <div class="v" id="accion"></div>
+    </div>
+
+    <div class="evidencia">
+      <h3>Evidencia de palabras clave (árbol de reglas)</h3>
+      <div id="barras"></div>
+    </div>
+  </div>
+
+  <footer>
+    Demo educativa · El resultado puede venir del <b>árbol de reglas</b> o del <b>LLM</b>.
+    Ver también <a href="/docs">/docs</a>.
+  </footer>
+</div>
+
+<script>
+const COLORES = {
+  urgente: getComputedStyle(document.documentElement).getPropertyValue('--urgente'),
+  queja: getComputedStyle(document.documentElement).getPropertyValue('--queja'),
+  consulta: getComputedStyle(document.documentElement).getPropertyValue('--consulta'),
+  otro: getComputedStyle(document.documentElement).getPropertyValue('--otro'),
+  revisar: getComputedStyle(document.documentElement).getPropertyValue('--revisar'),
+};
+const ICONOS = { urgente: '🚨', queja: '😠', consulta: '❓', otro: '💬', revisar: '🔎' };
+
+const EJEMPLOS = [
+  "El sistema de pagos está caído, no podemos facturar",
+  "¿Cuál es el horario de atención al cliente?",
+  "Es inaceptable, llevo semanas esperando el reembolso",
+  "Muchas gracias por la atención de ayer",
+  "La aplicación bancaria muestra saldos incorrectos",
+  "Necesito ayuda con mi cuenta",
+];
+
+const $ = (id) => document.getElementById(id);
+
+// Chips de ejemplo
+const cont = $('ejemplos');
+EJEMPLOS.forEach(txt => {
+  const b = document.createElement('button');
+  b.className = 'chip';
+  b.textContent = txt.length > 42 ? txt.slice(0, 40) + '…' : txt;
+  b.title = txt;
+  b.onclick = () => { $('mensaje').value = txt; $('mensaje').focus(); };
+  cont.appendChild(b);
+});
+
+// Estado del servicio / LLM
+async function cargarEstado() {
+  try {
+    const r = await fetch('/salud');
+    const d = await r.json();
+    const dot = $('estado-dot'), txt = $('estado-txt');
+    if (d.llm_disponible) {
+      dot.className = 'dot on';
+      txt.innerHTML = 'LLM activo: <b>' + (d.modelo || '—') + '</b> · umbral ' + d.umbral_confianza;
+    } else {
+      dot.className = 'dot off';
+      txt.innerHTML = 'Solo árbol de reglas (sin LLM) · umbral ' + d.umbral_confianza;
+    }
+  } catch (e) {
+    $('estado-txt').textContent = 'servicio no disponible';
+  }
+}
+cargarEstado();
+
+function pintarBarras(evidencia) {
+  const cont = $('barras');
+  cont.innerHTML = '';
+  const cats = ['urgente', 'queja', 'consulta', 'otro'];
+  const max = Math.max(1, ...cats.map(c => evidencia[c] || 0));
+  cats.forEach(c => {
+    const n = evidencia[c] || 0;
+    const row = document.createElement('div');
+    row.className = 'barra-row';
+    row.innerHTML =
+      '<span class="nombre">' + c + '</span>' +
+      '<span class="barra-track"><span class="barra-fill" style="width:' +
+      (n / max * 100) + '%;background:' + (COLORES[c] || '#888') + '"></span></span>' +
+      '<span class="num">' + n + '</span>';
+    cont.appendChild(row);
+  });
+}
+
+async function clasificar() {
+  const mensaje = $('mensaje').value.trim();
+  $('err').textContent = '';
+  if (!mensaje) { $('err').textContent = 'Escribe un mensaje primero.'; return; }
+
+  const btn = $('btn');
+  btn.disabled = true; btn.textContent = 'Clasificando…';
+  try {
+    const r = await fetch('/clasificar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mensaje }),
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+
+    const et = d.etiqueta;
+    const elEt = $('etiqueta');
+    elEt.textContent = (ICONOS[et] || '') + ' ' + et;
+    elEt.style.background = (COLORES[et] || '#334155');
+    elEt.style.color = '#0b1220';
+
+    const fuenteTxt = { reglas: '🌳 reglas', llm: '🤖 LLM', revision: '🔎 revisión' };
+    $('fuente').textContent = fuenteTxt[d.fuente] || d.fuente;
+    $('rev').style.display = d.requiere_revision ? 'inline-block' : 'none';
+
+    $('prioridad').textContent = d.prioridad;
+    $('equipo').textContent = d.equipo;
+    $('accion').textContent = d.accion;
+
+    pintarBarras(d.evidencia || {});
+    $('resultado').style.display = 'block';
+    $('resultado').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (e) {
+    $('err').textContent = 'Error al clasificar: ' + e.message;
+  } finally {
+    btn.disabled = false; btn.textContent = 'Clasificar';
+  }
+}
+
+$('btn').onclick = clasificar;
+$('mensaje').addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') clasificar();
+});
+</script>
+</body>
+</html>
